@@ -12,9 +12,17 @@ app.use(cors());
 
 app.get("/video", async (req: Request, res: Response) => {
   const videoName = req.query.videoName;
-  const details = await fetchMovieDetails(videoName as string);
-  console.log("details: ", JSON.stringify(details));
-  res.send(details);
+  if (!videoName) {
+    return res.send("no video name provided");
+  }
+  try {
+    const details = await fetchMovieDetails(videoName as string);
+    console.log("details: ", JSON.stringify(details));
+    res.send(details);
+  } catch (err) {
+    res.send("error");
+    console.log("err: ", err);
+  }
 });
 
 app.listen(port, () => {

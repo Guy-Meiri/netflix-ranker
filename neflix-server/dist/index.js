@@ -23,9 +23,18 @@ app.use(cors());
 // });
 app.get("/video", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const videoName = req.query.videoName;
-    const details = yield (0, moviesFetcher_1.fetchMovieDetails)(videoName);
-    console.log("details: ", JSON.stringify(details));
-    res.send(details);
+    if (!videoName) {
+        return res.send("no video name provided");
+    }
+    try {
+        const details = yield (0, moviesFetcher_1.fetchMovieDetails)(videoName);
+        console.log("details: ", JSON.stringify(details));
+        res.send(details);
+    }
+    catch (err) {
+        res.send("error");
+        console.log("err: ", err);
+    }
 }));
 app.listen(port, () => {
     console.log(`now listening on port ${port}`);

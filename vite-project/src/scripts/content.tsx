@@ -15,7 +15,8 @@ interface NetflixVideo {
   name: string;
   node: Element;
 }
-const baseUrl = "https://imdb-api.projects.thetuhin.com/";
+// const baseUrl = "https://imdb-api.projects.thetuhin.com/";
+const localHostBaseUrl = "http://localhost:8000/";
 
 function getVideos(): NetflixVideo[] {
   const items = document.querySelectorAll(".fallback-text");
@@ -28,68 +29,71 @@ function getVideos(): NetflixVideo[] {
   return itemNames;
 }
 
-const items = getVideos();
+const videos = getVideos();
 
-items.forEach((item) => {
-  fetchMovieDetails(item.name).then((res) => {
-    console.log("name: ", item.name, "res from top: ", JSON.stringify(res));
-    const ratingElement = document.createElement("div");
-    ratingElement.innerText = `Rating: ${res.star} (count: ${res.count})`;
-    item.node.insertAdjacentElement("afterend", ratingElement);
-    item.node.parentElement?.parentElement?.parentElement?.insertAdjacentElement(
-      "beforeend",
-      ratingElement
-    );
+addRatingToVideos(videos);
+
+// function addRatingToSingleVideo();
+
+async function addRatingToVideos(videos: NetflixVideo[]) {
+  const promises = videos.map((item) => {
+    return fetch(`${localHostBaseUrl}video/?videoName=${item.name}`);
   });
-});
 
-function fetchMovieDetails(movieName: string) {
-  const queryParam = `${movieName.split(" ").join("+")}`;
-  return fetch(`${baseUrl}search?query=${queryParam}`, {
-    headers: {
-      "Access-Control-Allow-Origin": "no-cors",
-    },
-  }).then(async (res) => {
-    const data = await res.json();
-    console.log("search result:");
-    // console.log(JSON.stringify(data));
-    const imdbId = data.results[0]?.id;
-    console.log("id: ", imdbId);
-    const movieDetailsRes = await fetch(`${baseUrl}title/${imdbId}`, {
-      headers: {
-        "Access-Control-Allow-Origin": "no-cors",
-      },
+  await Promise.allSettled(promises).then((res) => {
+    res.forEach(async (videoDetails, index) => {
+      console.log(JSON.stringify(videoDetails));
+      const videoNode = videos[index].node;
+      if (videoDetails.status === "fulfilled") {
+        const result = (await videoDetails.value.json()) as MovieDetails;
+        const ratingElement = document.createElement("div");
+        ratingElement.innerText = `Rating: ${result.star} (count: ${result.count})`;
+        videoNode.insertAdjacentElement("afterend", ratingElement);
+        videoNode.parentElement?.parentElement?.parentElement?.insertAdjacentElement(
+          "beforeend",
+          ratingElement
+        );
+      }
     });
-    const movieDetails = await movieDetailsRes.json();
-    console.log("-----------------------------");
-    // console.log("movieDetails: ", JSON.stringify(movieDetails));
-    const rating = movieDetails.rating;
-    console.log("-----------------------------");
-    console.log(`rating: ${JSON.stringify(rating)}`);
-    return rating as MovieDetails;
   });
 }
 
-// fetch("https://imdb-api.projects.thetuhin.com/title/tt6470478").then(
-//   async (res) => {
-//     const data = await res.json();
-//     console.log(JSON.stringify(data));
-//   }
-// );
-
-// chrome.runtime.onMessage.addListener((obj, sender, response) => {
-//   console.log("in chrome.runtime.onMessage.addListener", sender, response);
-//   const items = document.querySelectorAll(".fallback-text");
-
-//   const itemNames: string[] = [];
-//   items.forEach((i) => {
-//     itemNames.push(i.innerHTML);
+// videos.forEach((item) => {
+//   fetchMovieDetails(item.name).then((res) => {
+//     console.log("name: ", item.name, "res from top: ", JSON.stringify(res));
+//     const ratingElement = document.createElement("div");
+//     ratingElement.innerText = `Rating: ${res.star} (count: ${res.count})`;
+//     item.node.insertAdjacentElement("afterend", ratingElement);
+//     item.node.parentElement?.parentElement?.parentElement?.insertAdjacentElement(
+//       "beforeend",
+//       ratingElement
+//     );
 //   });
-//   console.log(JSON.stringify(itemNames));
-//   const { type } = obj;
-//   if (type === "loaded_netflix") {
-//     console.log(type);
-//   }
 // });
 
-export {};
+// function fetchMovieDetails(movieName: string) {
+//   const queryParam = `${movieName.split(" ").join("+")}`;
+//   return fetch(`${baseUrl}search?query=${queryParam}`, {
+//     headers: {
+//       "Access-Control-Allow-Origin": "no-cors",
+//     },
+//   }).then(async (res) => {
+//     const data = await res.json();
+//     console.log("search result:");
+//     // console.log(JSON.stringify(data));
+//     const imdbId = data.results[0]?.id;
+//     console.log("id: ", imdbId);
+//     const movieDetailsRes = await fetch(`${baseUrl}title/${imdbId}`, {
+//       headers: {
+//         "Access-Control-Allow-Origin": "no-cors",
+//       },
+//     });
+//     const movieDetails = await movieDetailsRes.json();
+//     console.log("-----------------------------");
+//     // console.log("movieDetails: ", JSON.stringify(movieDetails));
+//     const rating = movieDetails.rating;
+//     console.log("-----------------------------");
+//     console.log(`rating: ${JSON.stringify(rating)}`);
+//     return rating as MovieDetails;
+//   });
+// }
