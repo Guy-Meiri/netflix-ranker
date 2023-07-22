@@ -1,0 +1,65 @@
+{
+  "query": "The Good Doctor",
+  "message": "Found 6 titles",
+  "results": [
+    {
+      "id": "tt6470478",
+      "title": "The Good Doctor",
+      "year": 2017,
+      "type": "tvSeries",
+      "image": "https://m.media-amazon.com/images/M/MV5BMTViMDJlYzEtOTUxNi00ZTU5LWI5MTYtMGViNTQ4NTVkYTMyXkEyXkFqcGdeQXVyMzAzNTY3MDM@._V1_UY396_CR6,0,267,396_AL_.jpg",
+      "image_large": "https://m.media-amazon.com/images/M/MV5BMTViMDJlYzEtOTUxNi00ZTU5LWI5MTYtMGViNTQ4NTVkYTMyXkEyXkFqcGdeQXVyMzAzNTY3MDM@._V1_.jpg",
+      "api_path": "/title/tt6470478",
+      "imdb": "https://www.imdb.com/title/tt6470478"
+    },
+    {
+      "id": "tt1582271",
+      "title": "The Good Doctor",
+      "year": 2011,
+      "type": "movie",
+      "image": "https://m.media-amazon.com/images/M/MV5BMTMzODgyNTc4OF5BMl5BanBnXkFtZTcwNjcwODc3Nw@@._V1_UY396_CR6,0,267,396_AL_.jpg",
+      "image_large": "https://m.media-amazon.com/images/M/MV5BMTMzODgyNTc4OF5BMl5BanBnXkFtZTcwNjcwODc3Nw@@._V1_.jpg",
+      "api_path": "/title/tt1582271",
+      "imdb": "https://www.imdb.com/title/tt1582271"
+    },
+    {
+      "id": "tt10685098",
+      "title": "The Good Doctor",
+      "year": 1978,
+      "type": "tvMovie",
+      "image": null,
+      "image_large": null,
+      "api_path": "/title/tt10685098",
+      "imdb": "https://www.imdb.com/title/tt10685098"
+    },
+    {
+      "id": "tt3184708",
+      "title": "Good Doctor",
+      "year": 2013,
+      "type": "tvSeries",
+      "image": "https://m.media-amazon.com/images/M/MV5BYjc2NDJiM2EtZTRhMy00NTE1LTg4OTQtOGUwNDc0OGYwNTZiXkEyXkFqcGdeQXVyMzE4MDkyNTA@._V1_UY396_CR6,0,272,396_AL_.jpg",
+      "image_large": "https://m.media-amazon.com/images/M/MV5BYjc2NDJiM2EtZTRhMy00NTE1LTg4OTQtOGUwNDc0OGYwNTZiXkEyXkFqcGdeQXVyMzE4MDkyNTA@._V1_.jpg",
+      "api_path": "/title/tt3184708",
+      "imdb": "https://www.imdb.com/title/tt3184708"
+    },
+    {
+      "id": "tt14668094",
+      "title": "The Good Doctor",
+      "year": 2021,
+      "type": "movie",
+      "image": null,
+      "image_large": null,
+      "api_path": "/title/tt14668094",
+      "imdb": "https://www.imdb.com/title/tt14668094"
+    },
+    {
+      "id": "tt21860804",
+      "title": "The Good Lawyer",
+      "type": "tvSeries",
+      "image": null,
+      "image_large": null,
+      "api_path": "/title/tt21860804",
+      "imdb": "https://www.imdb.com/title/tt21860804"
+    }
+  ]
+}
